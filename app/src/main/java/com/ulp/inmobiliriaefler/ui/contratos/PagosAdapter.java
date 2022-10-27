@@ -51,7 +51,7 @@ public class PagosAdapter extends ArrayAdapter<Pago> {
         tvCodigoPago.setText(pago.getIdPago()+"");
         tvNumeroPago.setText(pago.getNumero()+"");
         tvCodigoContratoPago.setText(pago.getContrato()+"");
-        tvImportePago.setText(pago.getImporte()+"");
+        tvImportePago.setText("$"+String.format("%.2f",pago.getImporte()));
         tvFechaPago.setText(pago.getFechaDePago().toString());
         return  itemView;
     }

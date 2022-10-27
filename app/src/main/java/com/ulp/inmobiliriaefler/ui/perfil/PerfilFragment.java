@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 
 import com.bumptech.glide.Glide;
@@ -27,9 +28,10 @@ public class PerfilFragment extends Fragment {
     private EditText etId,etNombre,etApellido,etDni,etEmail,etTelefono,etPasswordEditar;
     private TextView tvErrorPerfil;
     private ImageView ivAvatar;
-    private Button btAccion;
-    private String avatar;
-    long dni;
+    private Button btAccion,btCambiarPassword;
+    private String avatar="";
+    private String password="";
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,7 +47,7 @@ public class PerfilFragment extends Fragment {
                 etDni.setText(propietario.getDni()+"");
                 etTelefono.setText(propietario.getTelefono());
                 etEmail.setText(propietario.getEmail());
-                etPasswordEditar.setText(propietario.getClave());
+                password=propietario.getClave();
 
 
                 Glide.with(getContext())
@@ -89,9 +91,9 @@ public class PerfilFragment extends Fragment {
         etDni= view.findViewById(R.id.etDni);
         etTelefono= view.findViewById(R.id.etTelefono);
         etEmail=view.findViewById(R.id.etEmail);
-        etPasswordEditar= view.findViewById(R.id.etPasswordEditar);
         ivAvatar=view.findViewById(R.id.ivAvatar);
         btAccion= view.findViewById(R.id.btAccion);
+        btCambiarPassword= view.findViewById(R.id.btCambiarPassword);
         tvErrorPerfil=view.findViewById(R.id.tvErrorPerfil);
         vmPerfil.ObtenerUsuario();
         btAccion.setOnClickListener(new View.OnClickListener() {
@@ -105,10 +107,15 @@ public class PerfilFragment extends Fragment {
                 String dni=etDni.getText().toString();
                 String telefono= etTelefono.getText().toString();
                 String email= etEmail.getText().toString();
-                String password= etPasswordEditar.getText().toString();
 
                 Propietario p = new Propietario(id,nombre,apellido,dni,telefono,email,password,avatar);
                 vmPerfil.actualizarPropietario(textoBoton,p);
+            }
+        });
+        btCambiarPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_cambiarPassword);
             }
         });
 

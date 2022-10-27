@@ -1,7 +1,12 @@
 package com.ulp.inmobiliriaefler.ui.inmuebles;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +24,7 @@ import com.ulp.inmobiliriaefler.modelo.Inmueble;
 import com.ulp.inmobiliriaefler.modelo.Tipo_Inmueble;
 import com.ulp.inmobiliriaefler.request.ApiRetrofit;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,7 +38,8 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
     private Context context;
 
     private MutableLiveData<Integer> mutableUso;
-    private MutableLiveData<Integer> mutableTipo;
+    private MutableLiveData<Bundle> mutableTipo;
+    private MutableLiveData<Bitmap> mutableFoto;
 
 
     public InmuebleNuevoViewModel(@NonNull Application application) {
@@ -44,15 +52,79 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
         }
         return mutableUso;
     }
-    public LiveData<Integer> getMutableTipo() {
+    public LiveData<Bundle> getMutableTipo() {
         if(mutableTipo == null) {
             mutableTipo = new MutableLiveData<>();
         }
         return mutableTipo;
     }
+    public LiveData<Bitmap> getMutableFoto() {
+        if(mutableFoto == null) {
+            mutableFoto = new MutableLiveData<>();
+        }
+        return mutableFoto;
+    }
+
+    public void crearInmueble(int id,String domicilio,int uso,int tipo,String ambientes,String precio,String longitud,String latitud, int propietario,Boolean disponible,String encoded,Tipo_Inmueble tipoInmueble){
+        Integer amb=0;
+        Double pre=0.1;
+        Double lon=0.1;
+        Double lat=0.1;
+        if(domicilio.equals("")){
+            Toast.makeText(context, "El campo domicilio no puede ser vacio.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            amb=Integer.parseInt(ambientes);
+        }
+        catch(NumberFormatException i){
+            Toast.makeText(context, "Ingrese el campo ambiente.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+           pre=Double.parseDouble(precio);
+        }
+        catch(NumberFormatException i){
+            Toast.makeText(context, "Ingrese el campo precio.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            lon=Double.parseDouble(longitud);
+        }
+        catch(NumberFormatException i){
+            Toast.makeText(context, "Ingrese el campo longitud.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            lat=Double.parseDouble(latitud);
+        }
+        catch(NumberFormatException i){
+            Toast.makeText(context, "Ingrese el campo latitud.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+            String token = ApiRetrofit.obtenerToken(context);
+            Call<Inmueble> crearInmueblePromesa = ApiRetrofit.getServiceInmobiliaria().agregarInmueble(token, domicilio, amb,pre, lon, lat, uso, disponible, tipo, propietario,encoded);
+            crearInmueblePromesa.enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Se agrego el inmueble con exito.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "No hay respuesta.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable t) {
+                    Toast.makeText(context, "Ocurrio un error en el servidor.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
 
-    public void crearInmueble(Inmueble inmueble){
+    /*public void crearInmueble(Inmueble inmueble){
         if(inmueble.getDireccion().equals("")){
             Toast.makeText(context, "El campo domicilio no puede ser vacio.", Toast.LENGTH_SHORT).show();
         }
@@ -86,7 +158,7 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
 
         }
 
-    }
+    }*/
     public void cargarSpinerTipo(Spinner spinner, View view){
         String token = ApiRetrofit.obtenerToken(view.getContext());
         Call<Tipo_Inmueble[]> obtenerTiposPromesa = ApiRetrofit.getServiceInmobiliaria().obtenerTipoInmueble(token);
@@ -109,7 +181,10 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            mutableTipo.setValue(idTipo[position]);
+                            Tipo_Inmueble ti= new Tipo_Inmueble(idTipo[position],descripcionTipo[position]);
+                            Bundle tipoInmueble = new Bundle();
+                            tipoInmueble.putSerializable("tipo",ti);
+                            mutableTipo.postValue(tipoInmueble);
                         }
 
                         @Override
@@ -147,5 +222,17 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+    public void sacarFoto(int requestCode, int resultCode, Intent data, int REQUEST_IMAGE_CAPTURE){
+        if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imagen= (Bitmap) extras.get("data");
+
+            ByteArrayOutputStream baos= new ByteArrayOutputStream();
+
+            imagen.compress(Bitmap.CompressFormat.JPEG,100,baos);
+            byte[] b= baos.toByteArray();
+            mutableFoto.postValue(imagen);
+        }
     }
 }

@@ -99,4 +99,25 @@
         tools:layout="@layout/fragment_inmueble_nuevo" >
 
     </fragment>
+    <fragment
+        android:id="@+id/nav_cambiarPassword"
+        android:name="com.ulp.inmobiliriaefler.ui.perfil.CambiarPasswordFragment"
+        android:label="Cambiar contraseña"
+        tools:layout="@layout/fragment_cambiar_password" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_mapaInmueble"
+        android:name="com.ulp.inmobiliriaefler.ui.inmuebles.MapaInmuebleFragment"
+        android:label="Marcar ubicacion"
+        tools:layout="@layout/fragment_inmueble_nuevo" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_reestablecerPasswordMail"
+        android:name="com.ulp.inmobiliriaefler.login.ReestablecerPasswordFragment"
+        android:label="Reestablecer E-mail"
+        tools:layout="@layout/fragment_reestablecer_password" >
+
+    </fragment>
 </navigation>

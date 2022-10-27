@@ -16,8 +16,8 @@ public class Inmueble implements Serializable {
     private String direccion;
     private int uso;
     private int tipoInmuebleId;
+    private Tipo_Inmueble tipoInmueble;
     private int ambientes;
-
     private Double longitud;
     private Double latitud;
     private Double precio;
@@ -25,7 +25,8 @@ public class Inmueble implements Serializable {
     private boolean oferta_activa;
     private String imagen;
 
-    public Inmueble(int idInmueble, String direccion, int uso, int tipo, int ambientes, Double precio, Double longitud, Double latitud, int propietario, boolean estado, String imagen) {
+
+    public Inmueble(int idInmueble, String direccion, int uso, int tipo, int ambientes, Double precio, Double longitud, Double latitud, int propietario, boolean estado, String imagen,Tipo_Inmueble ti) {
         this.id = idInmueble;
         this.direccion = direccion;
         this.uso = uso;
@@ -37,6 +38,7 @@ public class Inmueble implements Serializable {
         this.propietarioId = propietario;
         this.oferta_activa = estado;
         this.imagen = imagen;
+        this.tipoInmueble=ti;
     }
     public Inmueble() {
 
@@ -61,7 +63,6 @@ public class Inmueble implements Serializable {
         return uso;
     }
 
-
     public void setUso(int uso) {
         this.uso = uso;
     }
@@ -69,6 +70,15 @@ public class Inmueble implements Serializable {
     public int getTipo() {
         return tipoInmuebleId;
     }
+
+    public Tipo_Inmueble getTipoInmueble() {
+        return tipoInmueble;
+    }
+
+    public void setTipoInmueble(Tipo_Inmueble tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
+    }
+
 
     public void setTipo(int tipo) {
         this.tipoInmuebleId = tipo;
@@ -85,6 +95,7 @@ public class Inmueble implements Serializable {
     public Double getPrecio() {
         return precio;
     }
+
 
     public void setPrecio(Double precio) {
         this.precio = precio;

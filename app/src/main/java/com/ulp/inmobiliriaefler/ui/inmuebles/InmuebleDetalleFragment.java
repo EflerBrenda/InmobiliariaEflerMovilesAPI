@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,9 @@ public class InmuebleDetalleFragment extends Fragment {
                 tvDireccionDetalle.setText(inmueble.getDireccion());
                 int uso = inmueble.getUso() -1;
                 tvUsoDetalle.setText(Inmueble.EnUsos.values()[uso].toString());
-                tvTipoDetalle.setText(inmueble.getTipo()+"");
+                tvTipoDetalle.setText(inmueble.getTipoInmueble().getDescripcion());
                 tvAmbientesDetalle.setText(inmueble.getAmbientes()+"");
-                tvPrecioDetalle.setText(inmueble.getPrecio()+"");
+                tvPrecioDetalle.setText("$"+String.format("%.2f",inmueble.getPrecio()));
                 cbDisponible.setChecked(inmueble.isEstado());
                 cbDisponible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override

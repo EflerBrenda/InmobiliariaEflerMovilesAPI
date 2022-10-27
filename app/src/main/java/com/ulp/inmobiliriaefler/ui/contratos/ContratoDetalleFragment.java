@@ -32,7 +32,6 @@ public class ContratoDetalleFragment extends Fragment {
     private ContratoDetalleViewModel vmDetalle;
     private TextView tvCodigoContrato,tvFechaInicioContrato,tvMontoAlquiler,tvFechaFinContrato,tvInmuebleContrato,tvInquilinoContrato;
     private Button btPagos;
-    private SimpleDateFormat sdf;
 
     public static ContratoDetalleFragment newInstance() {
         return new ContratoDetalleFragment();
@@ -49,7 +48,7 @@ public class ContratoDetalleFragment extends Fragment {
 
                 tvCodigoContrato.setText(contrato.getIdContrato()+"");
                 tvFechaInicioContrato.setText(contrato.getFechaInicio());
-                tvMontoAlquiler.setText(contrato.getMontoAlquiler()+"");
+                tvMontoAlquiler.setText("$"+String.format("%.2f",contrato.getMontoAlquiler()));
                 tvFechaFinContrato.setText(contrato.getFechaFin());
                 tvInmuebleContrato.setText("Ubicado en: "+ contrato.getInmueble().getDireccion());
                 tvInquilinoContrato.setText(contrato.getInquilino().getNombre()+" "+contrato.getInquilino().getApellido());
@@ -67,7 +66,7 @@ public class ContratoDetalleFragment extends Fragment {
         return view;
     }
     public void inicializarVista(View view){
-        sdf= new SimpleDateFormat("dd/MM/yyyy");
+
         tvCodigoContrato= view.findViewById(R.id.tvCodigoContrato);
         tvFechaInicioContrato= view.findViewById(R.id.tvFechaInicioContrato);
         tvMontoAlquiler= view.findViewById(R.id.tvMontoAlquiler);

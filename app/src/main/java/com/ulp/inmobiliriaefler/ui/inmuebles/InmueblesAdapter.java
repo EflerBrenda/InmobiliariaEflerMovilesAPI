@@ -2,6 +2,7 @@ package com.ulp.inmobiliriaefler.ui.inmuebles;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,8 @@ public class InmueblesAdapter extends RecyclerView.Adapter<InmueblesAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Inmueble inmueble = lista.get(position);
         holder.tvDireccion.setText(inmueble.getDireccion());
-        holder.tvPrecio.setText(inmueble.getPrecio()+"");
+        holder.tvPrecio.setText("$"+String.format("%.2f", (inmueble.getPrecio())));
+
         //holder.ivInmueble.setImageResource(inmueble.getImagen());
         Glide.with(context)
                 .load(lista.get(position).getImagen())

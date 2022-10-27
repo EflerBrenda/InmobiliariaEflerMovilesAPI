@@ -1,6 +1,10 @@
 package com.ulp.inmobiliriaefler.modelo;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pago implements Serializable {
@@ -54,10 +58,28 @@ public class Pago implements Serializable {
     }
 
     public String getFechaDePago() {
-        return fecha_pago;
+        return convertirFecha(fecha_pago);
     }
 
     public void setFechaDePago(String fechaDePago) {
         this.fecha_pago = fechaDePago;
+    }
+
+    public String convertirFecha(String fecha){
+        String dia="";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date d = dateFormat.parse(fecha);
+
+            dia = formato.format(d);
+
+            Log.d("salida",dia);
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+            Log.d("salida",e.getMessage());
+        }
+        return dia;
     }
 }

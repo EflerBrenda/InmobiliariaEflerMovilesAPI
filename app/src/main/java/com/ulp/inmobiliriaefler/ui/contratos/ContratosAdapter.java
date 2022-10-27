@@ -41,7 +41,7 @@ public class ContratosAdapter extends RecyclerView.Adapter<ContratosAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Inmueble inmueble = lista.get(position);
         holder.tvDireccion.setText(inmueble.getDireccion());
-        holder.tvPrecio.setText(inmueble.getPrecio()+"");
+        holder.tvPrecio.setText("$"+String.format("%.2f",inmueble.getPrecio()));
         Glide.with(context)
                 .load(lista.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

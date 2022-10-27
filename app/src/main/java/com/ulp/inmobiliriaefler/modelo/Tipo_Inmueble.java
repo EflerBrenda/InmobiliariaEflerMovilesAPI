@@ -1,6 +1,8 @@
 package com.ulp.inmobiliriaefler.modelo;
 
-public class Tipo_Inmueble {
+import java.io.Serializable;
+
+public class Tipo_Inmueble implements Serializable {
     public int id;
     public String descripcion;
 

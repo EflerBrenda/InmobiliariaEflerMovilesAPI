@@ -3,9 +3,11 @@ package com.ulp.inmobiliriaefler.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -15,19 +17,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ulp.inmobiliriaefler.R;
 
 public class Login extends AppCompatActivity {
     private LoginViewModel vmLogin;
     private EditText etUsuario, etPassword;
-    private Button btLogin;
+    private Button btLogin,btReestablecerPass;
     private TextView tvError;
     private SensorManager sm;
     private LeeSensor leeSensor;
     private Sensor acelerometro;
     private Context context;
-    //private ApiClient api = ApiClient.getApi();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class Login extends AppCompatActivity {
         btLogin = findViewById(R.id.btLogin);
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
+        btReestablecerPass= findViewById(R.id.btReestablecerPass);
         tvError = findViewById(R.id.tvError);
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +100,17 @@ public class Login extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 tvError.setVisibility(View.INVISIBLE);
+            }
+        });
+        btReestablecerPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(etUsuario.getText().toString().equals("") || etUsuario.getText().toString()==null ){
+                    Toast.makeText(context, "El campo e-mail no debe ser vacio.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    vmLogin.restablecerPassword(etUsuario.getText().toString());
+                }
             }
         });
 

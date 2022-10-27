@@ -84,7 +84,7 @@ public class PerfilViewModel extends AndroidViewModel {
             }
             else{
                 String token=ApiRetrofit.obtenerToken(context);
-                Call <Propietario> actualizarPerfilPromesa =ApiRetrofit.getServiceInmobiliaria().actualizarPerfil(token,p.getId(),p.getDni(),p.getNombre(),p.getApellido(),p.getEmail(),p.getClave(),p.getTelefono());
+                Call <Propietario> actualizarPerfilPromesa =ApiRetrofit.getServiceInmobiliaria().actualizarPerfil(token,p.getId(),p.getDni(),p.getNombre(),p.getApellido(),p.getEmail(),p.getClave(),p.getTelefono(),p.getAvatar());
                 actualizarPerfilPromesa.enqueue(new Callback<Propietario>() {
                     @Override
                     public void onResponse(Call<Propietario> call, Response<Propietario> response) {

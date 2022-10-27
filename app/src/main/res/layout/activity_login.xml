@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/etUsuario"
-        android:layout_width="223dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_marginTop="28dp"
         android:ems="10"
@@ -22,7 +22,7 @@
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="225dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_marginTop="16dp"
         android:ems="10"
@@ -35,19 +35,18 @@
 
     <Button
         android:id="@+id/btLogin"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:layout_marginTop="10dp"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        app:layout_constraintVertical_bias="0.155" />
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <TextView
         android:id="@+id/tvError"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Usuario o password incorrectos. "
@@ -55,15 +54,15 @@
         android:textSize="16dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btReestablecerPass" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="304dp"
+        android:layout_width="match_parent"
         android:layout_height="201dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -83,5 +82,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvError"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.136" />
+
+    <Button
+        android:id="@+id/btReestablecerPass"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
+        android:text="Reestablecer contraseña"
+        app:layout_constraintTop_toBottomOf="@+id/btLogin"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="158dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

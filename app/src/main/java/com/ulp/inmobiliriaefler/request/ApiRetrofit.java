@@ -32,7 +32,7 @@ import retrofit2.http.Query;
 
 public class ApiRetrofit {
     //private static final String PATH="http://practicastuds.ulp.edu.ar/api/";
-    private static final String PATH="http://192.168.0.103:5000/api/";
+    private static final String PATH="http://192.168.0.104:5000/api/";
     private static ServiceInmobiliaria servicioInmobiliaria;
 
     public static ServiceInmobiliaria getServiceInmobiliaria(){
@@ -65,11 +65,6 @@ public class ApiRetrofit {
 
 
     public interface ServiceInmobiliaria {
-        //http://practicastuds.ulp.edu.ar/api/Propietarios/login
-        /*@POST("Propietarios/login")
-        Call<String>login (@Body Usuario user);*/
-        /*@POST("Propietarios/login")
-        Call<String>login (@Body Usuario usuario);*/
 
         @FormUrlEncoded
         @POST("Propietarios/login")
@@ -80,7 +75,7 @@ public class ApiRetrofit {
 
         @FormUrlEncoded
         @PUT("Propietarios")
-        Call<Propietario> actualizarPerfil (@Header("Authorization") String token, @Field("Id") int id,@Field("Dni") String dni,@Field("Nombre") String nombre,@Field("Apellido") String apellido,@Field("Email") String email,@Field("Password") String password,@Field("Telefono") String telefono);
+        Call<Propietario> actualizarPerfil (@Header("Authorization") String token, @Field("Id") int id,@Field("Dni") String dni,@Field("Nombre") String nombre,@Field("Apellido") String apellido,@Field("Email") String email,@Field("Password") String password,@Field("Telefono") String telefono,@Field("Avatar") String Avatar);
 
         @GET("Inmuebles")
         Call<List<Inmueble>> obtenerInmuebles (@Header("Authorization") String token);
@@ -98,13 +93,19 @@ public class ApiRetrofit {
         @GET("Contratos/ContratosVigentes")
         Call<List<Contrato>> ContratosVigentes (@Header("Authorization") String token);
 
-        //@GET("Contratos/{id}")
-        //Call<Contrato> obtenerContratos (@Header("Authorization") String token,@Path("id") int id);
+        @FormUrlEncoded
+        @PUT("Propietarios/CambiarPassword")
+        Call<Propietario> cambiarPassword (@Header("Authorization") String token,@Field("PasswordActual") String passwordActual,@Field("PasswordNueva") String passwordNueva);
 
         @GET("Inquilinos/{id}")
          Call<Contrato> obtenerContratosPorInmueble (@Header("Authorization") String token,@Path("id") int id);
 
         @GET("Pagos/{id}")
         Call<List<Pago>> obtenerPagos (@Header("Authorization") String token,@Path("id") int id);
+
+        @FormUrlEncoded
+        @POST("Propietarios/emailPedido")
+        Call<Propietario> reestablecerPassword (@Field("email") String email);
+
     }
 }

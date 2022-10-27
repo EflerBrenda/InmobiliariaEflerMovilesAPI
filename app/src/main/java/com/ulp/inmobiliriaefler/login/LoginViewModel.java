@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliriaefler.MainActivity;
+import com.ulp.inmobiliriaefler.modelo.Propietario;
 import com.ulp.inmobiliriaefler.modelo.Usuario;
 import com.ulp.inmobiliriaefler.request.ApiRetrofit;
 
@@ -44,7 +45,6 @@ public class LoginViewModel extends AndroidViewModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
 
-                    //Log.d("salida",token);
                     String token= "Bearer "+ response.body();
                     SharedPreferences sp= context.getSharedPreferences("token",0);
                     SharedPreferences.Editor editor=sp.edit();
@@ -68,16 +68,26 @@ public class LoginViewModel extends AndroidViewModel {
             }
         });
 
-       /* Propietario p = api.login(email, pass);
 
-        if (p != null) {
-            mutableError.setValue(View.INVISIBLE);
-            Intent i = new Intent(context, MainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
-        } else {
-            mutableError.setValue(View.VISIBLE);
-        }*/
+    }
+    public void restablecerPassword(String email){
+        Call<Propietario> reestablecerPasswordPromesa = ApiRetrofit.getServiceInmobiliaria().reestablecerPassword(email);
+        reestablecerPasswordPromesa.enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(context, "Se envio email para reestablecer la contraseña.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(context, "Sin respuesta.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                Toast.makeText(context, "Ocurrio un error en el servidor.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

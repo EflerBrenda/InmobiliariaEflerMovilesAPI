@@ -1,10 +1,11 @@
 package com.ulp.inmobiliriaefler.modelo;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class Contrato implements Serializable {
     private Inmueble inmueble;
 
 
-    public Contrato() {}
+    //public Contrato() {}
     public Contrato(int idContrato, Date fechaInicio, Date fechaFin, double montoAlquiler, Inquilino inquilino, Inmueble inmueble) throws ParseException {
         this.id = idContrato;
         this.fecha_Desde = fechaInicio.toString();
@@ -37,7 +38,7 @@ public class Contrato implements Serializable {
     }
 
     public String getFechaInicio() {
-        return fecha_Desde;
+        return convertirFecha(fecha_Desde);
     }
 
     public void setFechaInicio(String fechaInicio) {
@@ -45,7 +46,7 @@ public class Contrato implements Serializable {
     }
 
     public String getFechaFin() {
-        return fecha_Hasta;
+        return convertirFecha(fecha_Hasta);
     }
 
     public void setFechaFin(String fechaFin) {
@@ -77,4 +78,24 @@ public class Contrato implements Serializable {
         this.inmueble = inmueble;
     }
 
+    public String convertirFecha(String fecha){
+        String dia="";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date d = dateFormat.parse(fecha);
+
+            dia = formato.format(d);
+
+            Log.d("salida",dia);
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+            Log.d("salida",e.getMessage());
+        }
+        return dia;
+    }
+
 }
+
+

@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.244" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/activity_item_inmueble.xml" value="0.1897644927536232" />
-        <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/app_bar_main.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/content_main.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/ejemplo.xml" value="0.18984375" />
+        <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_cambiar_password.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_consulta_inmueble.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_contrato_detalle.xml" value="0.4" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_contratos.xml" value="0.20833333333333334" />
@@ -20,8 +21,10 @@
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_inquilino_detalle.xml" value="0.4" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_inquilinos.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_logout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_mapa_inmueble.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_pago.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_perfil.xml" value="0.264" />
+        <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/fragment_reestablecer_password.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/item_inmueble.xml" value="0.4199288256227758" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/item_inmueble_alquilado.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Brenda/AndroidStudioProjects/InmobiliriaEfler/app/src/main/res/layout/item_pago.xml" value="0.39294117647058824" />
