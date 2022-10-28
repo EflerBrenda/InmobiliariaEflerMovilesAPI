@@ -108,6 +108,12 @@ public class InmuebleNuevoFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        buscarCoordenadas();
+    }
+
     public void inicializarVista(View view){
         etDireccionNuevo= view.findViewById(R.id.etDireccionNuevo);
         etLatitudNuevo= view.findViewById(R.id.etLatitudNuevo);
@@ -127,11 +133,7 @@ public class InmuebleNuevoFragment extends Fragment {
                 != PermissionChecker.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.CAMERA}, 1000);
         }
-        SharedPreferences sp= view.getContext().getSharedPreferences("ubicacion",0);
-        latitud=sp.getString("latitud","");
-        longitud=sp.getString("longitud","");
-        etLatitudNuevo.setText(latitud);
-        etLongitudNuevo.setText(longitud);
+        buscarCoordenadas();
         ivInmuebleNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +182,13 @@ public class InmuebleNuevoFragment extends Fragment {
         mViewModel.sacarFoto(requestCode, resultCode, data,REQUEST_IMAGE_CAPTURE );
     }
 
+    public void buscarCoordenadas(){
+        SharedPreferences sp= getContext().getSharedPreferences("ubicacion",0);
+        latitud=sp.getString("latitud","");
+        longitud=sp.getString("longitud","");
+        etLatitudNuevo.setText(latitud);
+        etLongitudNuevo.setText(longitud);
+    }
 
 
 

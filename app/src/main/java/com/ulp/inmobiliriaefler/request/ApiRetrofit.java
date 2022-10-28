@@ -104,7 +104,7 @@ public class ApiRetrofit {
         Call<List<Pago>> obtenerPagos (@Header("Authorization") String token,@Path("id") int id);
 
         @FormUrlEncoded
-        @POST("Propietarios/emailPedido")
+        @POST("Propietarios/PedidoEmail")
         Call<Propietario> reestablecerPassword (@Field("email") String email);
 
     }

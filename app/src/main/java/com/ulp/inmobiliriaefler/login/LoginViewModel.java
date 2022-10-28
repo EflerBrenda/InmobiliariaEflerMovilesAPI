@@ -85,7 +85,7 @@ public class LoginViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable t) {
-                Toast.makeText(context, "Ocurrio un error en el servidor.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ocurrio un error en el servidor."+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

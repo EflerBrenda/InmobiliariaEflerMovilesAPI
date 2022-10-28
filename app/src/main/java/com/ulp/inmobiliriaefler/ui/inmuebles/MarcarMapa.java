@@ -32,13 +32,7 @@ public class MarcarMapa implements OnMapReadyCallback {
     public MarcarMapa(Context context) {
         this.inmobiliria= new LatLng(-33.280576,-66.332482);
         this.context= context;
-        String latitud=inmobiliria.latitude+"";
-        String longitud=inmobiliria.longitude+"";
-        SharedPreferences sp= context.getSharedPreferences("ubicacion",0);
-        SharedPreferences.Editor editor=sp.edit();
-        editor.putString("latitud",latitud);
-        editor.putString("longitud",longitud);
-        editor.commit();
+
     }
 
     @Override
@@ -50,6 +44,7 @@ public class MarcarMapa implements OnMapReadyCallback {
             marcadorSANLUIS.setPosition(inmobiliria);
 
             obtenerUltimaUbicacion();
+
         }
     private void obtenerUltimaUbicacion() {
         FusedLocationProviderClient fl= LocationServices.getFusedLocationProviderClient(context);
@@ -88,7 +83,6 @@ public class MarcarMapa implements OnMapReadyCallback {
                             editor.putString("latitud",latitud);
                             editor.putString("longitud",longitud);
                             editor.commit();
-
                         }
                     });
                 }
