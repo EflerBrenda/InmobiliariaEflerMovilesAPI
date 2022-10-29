@@ -48,6 +48,7 @@ public class InquilinosAdapter extends RecyclerView.Adapter<InquilinosAdapter.Vi
                 .load(lista.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivInmueble);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

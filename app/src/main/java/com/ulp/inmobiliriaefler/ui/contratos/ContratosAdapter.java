@@ -46,6 +46,7 @@ public class ContratosAdapter extends RecyclerView.Adapter<ContratosAdapter.View
                 .load(lista.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivInmueble);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

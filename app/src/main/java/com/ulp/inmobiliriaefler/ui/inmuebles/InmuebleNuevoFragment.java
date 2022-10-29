@@ -92,13 +92,12 @@ public class InmuebleNuevoFragment extends Fragment {
             public void onChanged(Bitmap bitmap) {
 
                 ivInmuebleNuevo.setImageBitmap(bitmap);
+
                 ByteArrayOutputStream baos=new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
                 byte [] b=baos.toByteArray();
 
                 encoded = Base64.getEncoder().encodeToString(b);
-
-
 
             }
         });
@@ -128,12 +127,10 @@ public class InmuebleNuevoFragment extends Fragment {
         ivInmuebleNuevo= view.findViewById(R.id.ivInmuebleNuevo);
         mViewModel.cargarSpinerTipo(spTipo,view);
         mViewModel.cargarSpinerUsos(spUso);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && checkSelfPermission(getContext(),CAMERA)
-                != PermissionChecker.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.CAMERA}, 1000);
-        }
+
+        solicitarPermisos();
         buscarCoordenadas();
+
         ivInmuebleNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,11 +142,6 @@ public class InmuebleNuevoFragment extends Fragment {
             public void onClick(View view) {
 
                 String domicilio= etDireccionNuevo.getText().toString();
-                /*SharedPreferences sp= view.getContext().getSharedPreferences("ubicacion",0);
-                latitud=sp.getString("latitud","");
-                longitud=sp.getString("longitud","");*/
-                //String latitud=etLatitudNuevo.getText().toString();
-                //String longitud=etLongitudNuevo.getText().toString();
                 String precio=etPrecioNuevo.getText().toString();
                 String ambientes=etAmbientes.getText().toString();
                 Boolean disponible=  swDisponibleNuevo.isChecked();
@@ -188,6 +180,13 @@ public class InmuebleNuevoFragment extends Fragment {
         longitud=sp.getString("longitud","");
         etLatitudNuevo.setText(latitud);
         etLongitudNuevo.setText(longitud);
+    }
+    public void solicitarPermisos(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(getContext(),CAMERA)
+                != PermissionChecker.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.CAMERA}, 1000);
+        }
     }
 
 

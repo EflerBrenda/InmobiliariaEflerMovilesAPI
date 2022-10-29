@@ -60,8 +60,10 @@ public class InmuebleDetalleFragment extends Fragment {
                         .load(inmueble.getImagen())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivAvatarDetalle);
+                ivAvatarDetalle.setRotation(90);
 
             }
+
         });
         inicializarVista(view);
         return view;

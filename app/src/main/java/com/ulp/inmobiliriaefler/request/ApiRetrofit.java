@@ -31,8 +31,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiRetrofit {
-    //private static final String PATH="http://practicastuds.ulp.edu.ar/api/";
-    private static final String PATH="http://192.168.0.104:5000/api/";
+
+    private static final String PATH="http://192.168.0.103:5000/api/";
     private static ServiceInmobiliaria servicioInmobiliaria;
 
     public static ServiceInmobiliaria getServiceInmobiliaria(){
@@ -62,7 +62,6 @@ public class ApiRetrofit {
         int id=sp.getInt("id",0);
         return id;
     }
-
 
     public interface ServiceInmobiliaria {
 

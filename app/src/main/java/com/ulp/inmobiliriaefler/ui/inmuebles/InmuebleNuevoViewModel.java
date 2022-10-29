@@ -6,7 +6,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -123,42 +125,6 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
 
         }
 
-
-    /*public void crearInmueble(Inmueble inmueble){
-        if(inmueble.getDireccion().equals("")){
-            Toast.makeText(context, "El campo domicilio no puede ser vacio.", Toast.LENGTH_SHORT).show();
-        }
-        if(inmueble.getUso() ==0 ){
-            Toast.makeText(context, "El campo uso no puede ser vacio.", Toast.LENGTH_SHORT).show();
-        }
-        if (inmueble.getTipo() ==0){
-            Toast.makeText(context, "El campo uso no puede ser vacio.", Toast.LENGTH_SHORT).show();
-        }
-        if (inmueble.getPropietario() ==0){
-            Toast.makeText(context, "Por favor, vuelva a loguearse.", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            String token = ApiRetrofit.obtenerToken(context);
-            Call<Inmueble> crearInmueblePromesa = ApiRetrofit.getServiceInmobiliaria().agregarInmueble(token, inmueble.getDireccion(), inmueble.getAmbientes(), inmueble.getPrecio(), inmueble.getLongitud(), inmueble.getLatitud(), inmueble.getUso(), inmueble.isEstado(), inmueble.getTipo(), inmueble.getPropietario(),inmueble.getImagen());
-            crearInmueblePromesa.enqueue(new Callback<Inmueble>() {
-                @Override
-                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(context, "Se agrego el inmueble con exito.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "No hay respuesta.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Inmueble> call, Throwable t) {
-                    Toast.makeText(context, "Ocurrio un error en el servidor.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-
-    }*/
     public void cargarSpinerTipo(Spinner spinner, View view){
         String token = ApiRetrofit.obtenerToken(view.getContext());
         Call<Tipo_Inmueble[]> obtenerTiposPromesa = ApiRetrofit.getServiceInmobiliaria().obtenerTipoInmueble(token);
@@ -168,9 +134,8 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
                 if(response.isSuccessful()){
                     Tipo_Inmueble [] tipoInmuebleResponse= response.body();
                     String [] descripcionTipo=new String[tipoInmuebleResponse.length];
-                    int [] idTipo=new int[tipoInmuebleResponse.length];
+
                     for(int i=0; i<tipoInmuebleResponse.length;i++){
-                        idTipo[i]=tipoInmuebleResponse[i].id;
                         descripcionTipo[i]=tipoInmuebleResponse[i].descripcion;
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, descripcionTipo);
@@ -181,11 +146,11 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            Tipo_Inmueble ti= new Tipo_Inmueble(idTipo[position],descripcionTipo[position]);
+                            Tipo_Inmueble ti= new Tipo_Inmueble(tipoInmuebleResponse[position].getId(),tipoInmuebleResponse[position].getDescripcion());
                             Bundle tipoInmueble = new Bundle();
                             tipoInmueble.putSerializable("tipo",ti);
                             mutableTipo.postValue(tipoInmueble);
-                        }
+                             }
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
@@ -232,7 +197,14 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
 
             imagen.compress(Bitmap.CompressFormat.JPEG,100,baos);
             byte[] b= baos.toByteArray();
-            mutableFoto.postValue(imagen);
+
+            mutableFoto.postValue(rotateBitmap(imagen,90));
         }
+    }
+    private static Bitmap rotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 }
