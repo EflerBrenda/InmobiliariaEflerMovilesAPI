@@ -87,7 +87,7 @@ public class ApiRetrofit {
 
         @FormUrlEncoded
         @POST("Inmuebles")
-        Call<Inmueble> agregarInmueble (@Header("Authorization") String token,@Field("Direccion") String direccion,@Field("Ambientes") int ambientes,@Field("Precio") Double precio,@Field("Latitud") Double latitud,@Field("Longitud") Double longitud,@Field("Uso") int uso,@Field("Oferta_activa") Boolean Oferta_activa,@Field("TipoInmuebleId") int TipoInmuebleId, @Field("PropietarioId") int propietarioId, @Field("Imagen") String imagen);
+        Call<Inmueble> agregarInmueble (@Header("Authorization") String token,@Field("Direccion") String direccion,@Field("Ambientes") int ambientes,@Field("Precio") Double precio,@Field("Latitud") String latitud,@Field("Longitud") String longitud,@Field("Uso") int uso,@Field("Oferta_activa") Boolean Oferta_activa,@Field("TipoInmuebleId") int TipoInmuebleId, @Field("PropietarioId") int propietarioId, @Field("Imagen") String imagen);
 
         @GET("Contratos/ContratosVigentes")
         Call<List<Contrato>> ContratosVigentes (@Header("Authorization") String token);

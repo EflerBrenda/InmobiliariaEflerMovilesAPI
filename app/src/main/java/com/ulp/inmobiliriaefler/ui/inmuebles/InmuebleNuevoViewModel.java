@@ -21,7 +21,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.Navigation;
 
+import com.ulp.inmobiliriaefler.R;
 import com.ulp.inmobiliriaefler.modelo.Inmueble;
 import com.ulp.inmobiliriaefler.modelo.Tipo_Inmueble;
 import com.ulp.inmobiliriaefler.request.ApiRetrofit;
@@ -67,13 +69,20 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
         return mutableFoto;
     }
 
-    public void crearInmueble(int id,String domicilio,int uso,int tipo,String ambientes,String precio,String longitud,String latitud, int propietario,Boolean disponible,String encoded,Tipo_Inmueble tipoInmueble){
+    public void crearInmueble(int id,String domicilio,int uso,int tipo,String ambientes,String precio,String longitud,String latitud, int propietario,Boolean disponible,String encoded,Tipo_Inmueble tipoInmueble,View view){
         Integer amb=0;
         Double pre=0.1;
-        Double lon=0.1;
-        Double lat=0.1;
+
         if(domicilio.equals("")){
             Toast.makeText(context, "El campo domicilio no puede ser vacio.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(longitud.equals("")){
+            Toast.makeText(context, "El campo longitud no puede ser vacio.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(latitud.equals("")){
+            Toast.makeText(context, "El campo latitud no puede ser vacio.", Toast.LENGTH_SHORT).show();
             return;
         }
         try{
@@ -90,28 +99,14 @@ public class InmuebleNuevoViewModel extends AndroidViewModel {
             Toast.makeText(context, "Ingrese el campo precio.", Toast.LENGTH_SHORT).show();
             return;
         }
-        try{
-            lon=Double.parseDouble(longitud);
-        }
-        catch(NumberFormatException i){
-            Toast.makeText(context, "Ingrese el campo longitud.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try{
-            lat=Double.parseDouble(latitud);
-        }
-        catch(NumberFormatException i){
-            Toast.makeText(context, "Ingrese el campo latitud.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
             String token = ApiRetrofit.obtenerToken(context);
-            Call<Inmueble> crearInmueblePromesa = ApiRetrofit.getServiceInmobiliaria().agregarInmueble(token, domicilio, amb,pre, lon, lat, uso, disponible, tipo, propietario,encoded);
+            Call<Inmueble> crearInmueblePromesa = ApiRetrofit.getServiceInmobiliaria().agregarInmueble(token, domicilio, amb,pre, latitud, longitud, uso, disponible, tipo, propietario,encoded);
             crearInmueblePromesa.enqueue(new Callback<Inmueble>() {
                 @Override
                 public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(context, "Se agrego el inmueble con exito.", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.nav_inmuebles);
                     } else {
                         Toast.makeText(context, "No hay respuesta.", Toast.LENGTH_SHORT).show();
                     }

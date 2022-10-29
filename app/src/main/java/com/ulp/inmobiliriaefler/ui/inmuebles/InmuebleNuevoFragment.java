@@ -148,7 +148,7 @@ public class InmuebleNuevoFragment extends Fragment {
                 int uso=iduso;
                 int propietario= ApiRetrofit.obtenerPropietarioActual(getContext());
 
-                mViewModel.crearInmueble(0,domicilio,uso,tipoInmueble.getId(),ambientes,precio,longitud,latitud,propietario,disponible,encoded,tipoInmueble);
+                mViewModel.crearInmueble(0,domicilio,uso,tipoInmueble.getId(),ambientes,precio,longitud,latitud,propietario,disponible,encoded,tipoInmueble,view);
             }
 
         });

@@ -8,18 +8,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.ulp.inmobiliriaefler.R;
 import com.ulp.inmobiliriaefler.modelo.Inmueble;
 
@@ -27,8 +33,10 @@ public class InmuebleDetalleFragment extends Fragment {
 
     private InmuebleDetalleViewModel vmDetalle;
     private TextView tvCodigoDetalle,tvDireccionDetalle,tvUsoDetalle,tvTipoDetalle,tvAmbientesDetalle,tvPrecioDetalle;
-    private CheckBox cbDisponible;
+    private Switch cbDisponible;
     private ImageView ivAvatarDetalle;
+    private Button btVerUbicacion;
+
 
     public static InmuebleDetalleFragment newInstance() {
         return new InmuebleDetalleFragment();
@@ -60,11 +68,10 @@ public class InmuebleDetalleFragment extends Fragment {
                         .load(inmueble.getImagen())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivAvatarDetalle);
-                ivAvatarDetalle.setRotation(90);
-
             }
 
         });
+
         inicializarVista(view);
         return view;
     }
@@ -77,8 +84,17 @@ public class InmuebleDetalleFragment extends Fragment {
         tvPrecioDetalle= view.findViewById(R.id.tvPrecioDetalle);
         cbDisponible= view.findViewById(R.id.cbDisponible);
         ivAvatarDetalle= view.findViewById(R.id.ivInmuebleNuevo);
+        btVerUbicacion= view.findViewById(R.id.btVerUbicacion);
+
+
         Bundle bundle = getArguments();
         vmDetalle.obtenerInmueble(bundle);
+        btVerUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_ubicacionInmueble,bundle);
+            }
+        });
 
     }
 

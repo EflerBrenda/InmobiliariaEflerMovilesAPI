@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.ulp.inmobiliriaefler.modelo.Inmueble;
 import com.ulp.inmobiliriaefler.request.ApiRetrofit;
 
@@ -21,7 +22,8 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
     private Context context;
     private MutableLiveData <Inmueble> mutableInmueble;
-    //private ApiClient api = ApiClient.getApi();
+    private MutableLiveData<MostrarLocalizacion> mutableMostrarLocalizacion;
+
 
     public InmuebleDetalleViewModel(@NonNull Application application) {
         super(application);
@@ -33,6 +35,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
         }
         return mutableInmueble;
     }
+
 
     public void obtenerInmueble(Bundle bundle){
         mutableInmueble.setValue((Inmueble) bundle.getSerializable("inmueble"));
@@ -59,10 +62,8 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
            }
        });
 
-       /*inmueble.setEstado(b);
-       api.actualizarInmueble(inmueble);*/
-
     }
+
 
 
 }

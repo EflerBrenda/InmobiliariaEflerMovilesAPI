@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -22,15 +21,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.ulp.inmobiliriaefler.modelo.Inmueble;
 
-public class MarcarMapa implements OnMapReadyCallback {
-    private LatLng inmobiliria;
+public class MostrarLocalizacion implements OnMapReadyCallback {
+    private LatLng latLnginmueble;
     private Context context;
     private GoogleMap map;
+    private Inmueble inmueble;
 
 
-    public MarcarMapa(Context context) {
-        this.inmobiliria= new LatLng(-33.280576,-66.332482);
+    public MostrarLocalizacion(Context context, Inmueble inmueble) {
+        this. inmueble= inmueble;
+        this.latLnginmueble= new LatLng(Double.parseDouble(inmueble.getLatitud()),Double.parseDouble(inmueble.getLongitud()));
         this.context= context;
 
     }
@@ -39,9 +41,9 @@ public class MarcarMapa implements OnMapReadyCallback {
         public void onMapReady(@NonNull GoogleMap googleMap) {
             map= googleMap;
             googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            Marker marcadorSANLUIS=googleMap.addMarker(new MarkerOptions().position(inmobiliria));
-            marcadorSANLUIS.setTitle("Inmobiliria Efler");
-            marcadorSANLUIS.setPosition(inmobiliria);
+            Marker marcadorSANLUIS=googleMap.addMarker(new MarkerOptions().position(latLnginmueble));
+            marcadorSANLUIS.setTitle(inmueble.getDireccion());
+            marcadorSANLUIS.setPosition(latLnginmueble);
 
             obtenerUltimaUbicacion();
 
@@ -69,22 +71,7 @@ public class MarcarMapa implements OnMapReadyCallback {
                             .build();
                     CameraUpdate caULP= CameraUpdateFactory.newCameraPosition(camUlp);
                     map.animateCamera(caULP);
-                    map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                        @Override
-                        public void onMapClick(@NonNull LatLng latLng) {
-                            Projection proj = map.getProjection();
-                            android.graphics.Point coor= proj.toScreenLocation(latLng);
-                            map.addMarker(new MarkerOptions().position(latLng))
-                                    .setTitle("Nuevo");
-                            String latitud=latLng.latitude+"";
-                            String longitud=latLng.longitude+"";
-                            SharedPreferences sp= context.getSharedPreferences("ubicacion",0);
-                            SharedPreferences.Editor editor=sp.edit();
-                            editor.putString("latitud",latitud);
-                            editor.putString("longitud",longitud);
-                            editor.commit();
-                        }
-                    });
+
                 }
             }
         });

@@ -114,10 +114,10 @@
 
     </fragment>
     <fragment
-        android:id="@+id/nav_reestablecerPasswordMail"
-        android:name="com.ulp.inmobiliriaefler.login.ReestablecerPasswordFragment"
-        android:label="Reestablecer E-mail"
-        tools:layout="@layout/fragment_reestablecer_password" >
+        android:id="@+id/nav_ubicacionInmueble"
+        android:name="com.ulp.inmobiliriaefler.ui.inmuebles.MostrarUbicacionInmuebleFragment"
+        android:label="Ver ubicación"
+        tools:layout="@layout/fragment_mostrar_ubicacion_inmueble" >
 
     </fragment>
 </navigation>
